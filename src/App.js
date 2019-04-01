@@ -1,13 +1,15 @@
+//eslint-disable-next-line
 import React, { useState, useEffect } from "react";
+import { useTitleInput } from "./hooks/useTitleInput";
 //useEffect run after every complete render(after mount and update)
 
 const App = () => {
   // const [value, setValue] = useState(initialState);
-  const [name, setName] = useState("");
+  const [name, setName] = useTitleInput("");
 
-  useEffect(() => {
-    document.title = name; //documeent is browser api, here the title is change
-  });
+  // useEffect(() => {
+  //  document.title = name; //documeent is browser api, here the title is change
+  // });
 
   return (
     <div className="main-wrapper">
