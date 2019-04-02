@@ -1,5 +1,5 @@
 //eslint-disable-next-line
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Toggle from "./Toggle";
 import { useTitleInput } from "./hooks/useTitleInput";
@@ -13,21 +13,10 @@ const App = () => {
   //  document.title = name; //documeent is browser api, here the title is change
   // });
 
-  const reverseWord = word => {
-    return word
-      .split("")
-      .reverse()
-      .join("");
-  };
-  //const title = "Level Up Dishes";
-
-  const TitleReversed = useMemo(() => reverseWord(name), [name]);
-
   return (
     <div className="main-wrapper" ref={ref}>
       <h1 onClick={() => ref.current.classList.add("new-fake-class")}>
         {/*when we click on h1 new class is added to it */}
-        {TitleReversed}
       </h1>
       <Toggle />
 

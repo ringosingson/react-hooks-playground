@@ -6,7 +6,7 @@ const Toggle = () => {
   return (
     <div>
       <button onClick={() => setToggle(!isToggled)}>Toggle</button>
-      {isToggled && <h2>Hello</h2>}
+      {isToggled && <h2>Hello From Ringo</h2>}
     </div>
   );
 };
