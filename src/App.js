@@ -1,5 +1,6 @@
 //eslint-disable-next-line
 import React, { useState, useEffect, useRef, createContext } from "react";
+import Counter from "./Counter";
 import Toggle from "./Toggle";
 import { useTitleInput } from "./hooks/useTitleInput";
 //useEffect run after every complete render(after mount and update)
@@ -25,6 +26,7 @@ const App = () => {
           Level Up Dishes
         </h1>
         <Toggle />
+        <Counter />
 
         <form
           onSubmit={e => {
