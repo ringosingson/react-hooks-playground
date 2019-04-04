@@ -1,6 +1,7 @@
 //eslint-disable-next-line
 import React, { useState, useEffect, useRef } from "react";
 import useAbortableFetch from "use-abortable-fetch";
+import { useSpring, animated } from "react-spring";
 import Toggle from "./Toggle";
 import { useTitleInput } from "./hooks/useTitleInput";
 //useEffect run after every complete render(after mount and update)
@@ -17,14 +18,17 @@ const App = () => {
     "https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes"
   );
 
-  if (!data) return null;
+  const props = useSpring({ opacity: 1, from: { opacity: 0 } });
 
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => ref.current.classList.add("new-fake-class")}>
+      <animated.h1
+        style={props}
+        onClick={() => ref.current.classList.add("new-fake-class")}
+      >
         {/*when we click on h1 new class is added to it */}
         Level up Hooks
-      </h1>
+      </animated.h1>
       <Toggle />
 
       <form
@@ -39,17 +43,18 @@ const App = () => {
         />
         <button>Submit</button>
       </form>
-      {data.map(dish => (
-        <article key={dish.id} className="dish-card dish-card--withImage">
-          <h3>{dish.name}</h3>
-          <p>{dish.desc}</p>
-          <div className="ingredients">
-            {dish.ingredients.map(ingredient => (
-              <span>{ingredient}</span>
-            ))}
-          </div>
-        </article>
-      ))}
+      {data &&
+        data.map(dish => (
+          <article className="dish-card dish-card--withImage">
+            <h3>{dish.name}</h3>
+            <p>{dish.desc}</p>
+            <div className="ingredients">
+              {dish.ingredients.map(ingredient => (
+                <span>{ingredient}</span>
+              ))}
+            </div>
+          </article>
+        ))}
     </div>
   );
 };
