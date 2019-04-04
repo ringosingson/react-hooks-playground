@@ -1,6 +1,6 @@
 //eslint-disable-next-line
 import React, { useState, useEffect, useRef } from "react";
-
+import useAbortableFetch from "use-abortable-fetch";
 import Toggle from "./Toggle";
 import { useTitleInput } from "./hooks/useTitleInput";
 //useEffect run after every complete render(after mount and update)
@@ -12,19 +12,12 @@ const App = () => {
   // useEffect(() => {
   //  document.title = name; //documeent is browser api, here the title is change
   // });
-  const [dishes, setDishes] = useState([]);
+  //eslint-disable-next-line
+  const { data, loading } = useAbortableFetch(
+    "https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes"
+  );
 
-  const fetchDishes = async () => {
-    const res = await fetch(
-      "https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes"
-    );
-    const data = await res.json();
-    setDishes(data);
-  };
-
-  useEffect(() => {
-    fetchDishes();
-  }, []);
+  if (!data) return null;
 
   return (
     <div className="main-wrapper" ref={ref}>
@@ -46,7 +39,7 @@ const App = () => {
         />
         <button>Submit</button>
       </form>
-      {dishes.map(dish => (
+      {data.map(dish => (
         <article key={dish.id} className="dish-card dish-card--withImage">
           <h3>{dish.name}</h3>
           <p>{dish.desc}</p>
